@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// PlayerController is responsible for managing the player's actions,
@@ -9,6 +10,10 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField, Tooltip("The maximum speed with which the player moves.")]
     private float _speed = 1f;
+    [SerializeField, Tooltip("Movement input when using actions mode.")]
+    private InputActionReference _moveAction;
+    [SerializeField, Tooltip("Look input when using actions mode.")]
+    private InputActionReference _lookAction;
     [SerializeField, Tooltip("Input handling mode. Keys process WASD. " +
                              "Axes uses input configured in ProjectSettings.InputManager")]
     private Mode _mode = Mode.Axes;
@@ -16,7 +21,8 @@ public class PlayerController : MonoBehaviour
     private enum Mode
     {
         Axes,
-        Keys
+        Keys,
+        Actions
     }
 
     private void Update()
@@ -29,10 +35,16 @@ public class PlayerController : MonoBehaviour
             case Mode.Keys:
                 HandleInputKeys();
                 break;
+            case Mode.Actions:
+                HandleInputActions();
+                break;
             default:
                 enabled = false;
                 throw new ArgumentOutOfRangeException($"Unknown input mode: {_mode}");
         }
+
+        // stay upright
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
     }
 
     private void HandleInputKeys()
@@ -47,7 +59,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(direction);
         }
-        
+
         MovePlayer(direction);
     }
 
@@ -55,6 +67,19 @@ public class PlayerController : MonoBehaviour
     {
         var direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         MovePlayer(direction);
+    }
+
+    private void HandleInputActions()
+    {
+        var moveInput = _moveAction.action.ReadValue<Vector2>();
+        var direction = new Vector3(moveInput.x, 0, moveInput.y);
+        MovePlayer(direction);
+        var lookInput = _lookAction.action.ReadValue<Vector2>();
+        var lookDirection = new Vector3(lookInput.x, 0, lookInput.y);
+        if (lookDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(lookDirection);
+        }
     }
 
     private void MovePlayer(Vector3 direction)
