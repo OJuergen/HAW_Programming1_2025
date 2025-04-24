@@ -1,7 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// PlayerController is responsible for managing the player's actions, movement, and interaction within the game environment.
+/// PlayerController is responsible for managing the player's actions,
+/// movement, and interaction within the game environment.
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.S)) direction += Vector3.back;
         if (Input.GetKey(KeyCode.D)) direction += Vector3.right;
         transform.position += direction * (_speed * Time.deltaTime);
-        transform.rotation = Quaternion.LookRotation(direction);
+        if (direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
     }
 }
