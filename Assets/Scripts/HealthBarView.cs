@@ -11,6 +11,9 @@ namespace GameProgramming1
         [SerializeField, Tooltip("The filling of the health bar indicating the health value.")]
         private RectTransform _filling;
 
+        [SerializeField, Tooltip("If checked, will automatically orient towards the main camera.")]
+        private bool _faceCamera = true;
+
         [Header("State. Inspector changed will be overwritten at runtime.")]
         [SerializeField, Range(0, 100)] private float _percentage = 100;
 
@@ -37,6 +40,14 @@ namespace GameProgramming1
             if (value < 0 || value > 100) throw new ArgumentException("Percentage must be between 0 and 100");
             _percentage = value;
             Refresh();
+        }
+
+        private void LateUpdate()
+        {
+            if (_faceCamera && Camera.main)
+            {
+                transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
+            }
         }
     }
 }
