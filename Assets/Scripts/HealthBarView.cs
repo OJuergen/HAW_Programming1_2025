@@ -42,6 +42,11 @@ namespace GameProgramming1
             Refresh();
         }
 
+        public void OnHealthChanged((IHealth health, int amount, int newHealth) eventArgs)
+        {
+            SetPercentage(100f * eventArgs.newHealth / eventArgs.health.MaxHealth);
+        }
+
         private void LateUpdate()
         {
             if (_faceCamera && Camera.main)
