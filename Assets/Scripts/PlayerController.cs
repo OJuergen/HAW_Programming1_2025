@@ -19,12 +19,23 @@ namespace GameProgramming1
         [SerializeField, Tooltip("Input handling mode. Keys process WASD. " +
                                  "Axes uses input configured in ProjectSettings.InputManager")]
         private Mode _mode = Mode.Axes;
+        private Camera _camera;
 
         private enum Mode
         {
             Axes,
             Keys,
             Actions
+        }
+
+        private void Start()
+        {
+            _camera = Camera.main;
+            if (_camera == null)
+            {
+                Debug.LogWarning("No camera found. Disabling player controller.", this);
+                enabled = false;
+            }
         }
 
         private void Update()
@@ -51,43 +62,48 @@ namespace GameProgramming1
 
         private void HandleInputKeys()
         {
-            Vector3 direction = Vector3.zero;
-            if (Input.GetKey(KeyCode.W)) direction += Vector3.forward;
-            if (Input.GetKey(KeyCode.A)) direction += Vector3.left;
-            if (Input.GetKey(KeyCode.S)) direction += Vector3.back;
-            if (Input.GetKey(KeyCode.D)) direction += Vector3.right;
-            transform.position += direction * (_speed * Time.deltaTime);
-            if (direction != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(direction);
-            }
+            Vector2 input = Vector2.zero;
+            if (Input.GetKey(KeyCode.W)) input += Vector2.up;
+            if (Input.GetKey(KeyCode.A)) input += Vector2.left;
+            if (Input.GetKey(KeyCode.S)) input += Vector2.down;
+            if (Input.GetKey(KeyCode.D)) input += Vector2.right;
 
-            MovePlayer(direction);
+            HandleMoveInput(input);
+            HandleLookInput(input);
         }
 
         private void HandleInputAxes()
         {
-            var direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            MovePlayer(direction);
+            var input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            HandleMoveInput(input);
+            HandleLookInput(input);
         }
 
         private void HandleInputActions()
         {
             var moveInput = _moveAction.action.ReadValue<Vector2>();
-            var direction = new Vector3(moveInput.x, 0, moveInput.y);
-            MovePlayer(direction);
+            HandleMoveInput(moveInput);
+
             var lookInput = _lookAction.action.ReadValue<Vector2>();
-            var lookDirection = new Vector3(lookInput.x, 0, lookInput.y);
-            if (lookDirection != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(lookDirection);
-            }
+            if (lookInput == Vector2.zero) lookInput = moveInput;
+            HandleLookInput(lookInput);
         }
 
-        private void MovePlayer(Vector3 direction)
+        private void HandleMoveInput(Vector2 inputDirection)
         {
+            Vector3 inputDirection3D = new Vector3(inputDirection.x, 0, inputDirection.y);
+            Vector3 direction = Quaternion.AngleAxis(_camera.transform.eulerAngles.y, Vector3.up) * inputDirection3D;
             transform.Translate(direction * (_speed * Time.deltaTime), Space.World);
-            transform.LookAt(transform.position + direction);
+        }
+
+        private void HandleLookInput(Vector2 inputDirection)
+        {
+            Vector3 inputDirection3D = new Vector3(inputDirection.x, 0, inputDirection.y);
+            Vector3 direction = Quaternion.AngleAxis(_camera.transform.eulerAngles.y, Vector3.up) * inputDirection3D;
+            if (direction != Vector3.zero)
+            {
+                transform.LookAt(transform.position + direction);
+            }
         }
     }
 }
