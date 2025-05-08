@@ -9,12 +9,12 @@ namespace GameProgramming1
     public class Player : MonoBehaviour
     {
         public IHealth Health { get; private set; }
-        public PlayerController PlayerController { get; private set; }
+        [field: SerializeField] public PlayerController PlayerController { get; private set; }
+        [field: SerializeField] public Transform CameraFocusPoint { get; private set; }
 
         private void Awake()
         {
             Health = GetComponent<IHealth>();
-            PlayerController = GetComponent<PlayerController>();
 
             if (Health == null || PlayerController == null)
             {
