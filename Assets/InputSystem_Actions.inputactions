@@ -1017,6 +1017,39 @@
                 },
                 {
                     "name": "One Modifier",
+                    "id": "103cfdbb-0291-4862-b59e-d4e1a26921be",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "10f47022-cebe-4e4e-a439-ebfc8aa30c74",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "708921d4-008e-4627-bf89-8f956c9f4c82",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "ScaleVector2(x=0,y=0.1)",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
                     "id": "ad847736-bead-4b2a-9afc-24cd61fb786a",
                     "path": "OneModifier",
                     "interactions": "",
