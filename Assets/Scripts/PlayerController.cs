@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +22,12 @@ namespace GameProgramming1
                                  "Axes uses input configured in ProjectSettings.InputManager")]
         private Mode _mode = Mode.Axes;
         private Camera _camera;
+
+        // blockable
+        private readonly HashSet<object> _blockers = new();
+        public bool IsBlocked => _blockers.Any();
+        public void AddBlocker(object blocker) => _blockers.Add(blocker);
+        public void RemoveBlocker(object blocker) => _blockers.Remove(blocker);
 
         private enum Mode
         {
@@ -91,6 +99,7 @@ namespace GameProgramming1
 
         private void HandleMoveInput(Vector2 inputDirection)
         {
+            if (IsBlocked) return;
             Vector3 inputDirection3D = new Vector3(inputDirection.x, 0, inputDirection.y);
             Vector3 direction = Quaternion.AngleAxis(_camera.transform.eulerAngles.y, Vector3.up) * inputDirection3D;
             transform.Translate(direction * (_speed * Time.deltaTime), Space.World);
@@ -98,6 +107,7 @@ namespace GameProgramming1
 
         private void HandleLookInput(Vector2 inputDirection)
         {
+            if (IsBlocked) return;
             Vector3 inputDirection3D = new Vector3(inputDirection.x, 0, inputDirection.y);
             Vector3 direction = Quaternion.AngleAxis(_camera.transform.eulerAngles.y, Vector3.up) * inputDirection3D;
             if (direction != Vector3.zero)

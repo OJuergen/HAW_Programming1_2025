@@ -127,6 +127,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 203162969775758974, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 203162969775758974, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 203162969775758974, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256596910885288833, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256596910885288833, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256596910885288833, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7483414302151455460, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
       propertyPath: m_Name
       value: Player asset events
@@ -174,7 +198,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7483414302151455460, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1349718711}
+    - targetCorrespondingSourceObject: {fileID: 7483414302151455460, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1349718712}
   m_SourcePrefab: {fileID: 100100000, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
 --- !u!1 &330585543
 GameObject:
@@ -530,6 +560,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1349718702 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7483414302151455460, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+  m_PrefabInstance: {fileID: 308012705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1349718705 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6260505123918557490, guid: 040f4edd0be53e94b96a0a6dedf388fd, type: 3}
+  m_PrefabInstance: {fileID: 308012705}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349718702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23559c5dc686bf5459b79a46bd78afb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1349718711
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349718702}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c57d19ce630fca14695f2b69adee9092, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1349718712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349718702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 842ffdab2f31427db561321c0767e7f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerController: {fileID: 1349718705}
+  _dashAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  <DashCooldown>k__BackingField: 0.5
+  _canCancel: 0
+  _animator: {fileID: 1349718711}
 --- !u!1 &1733253147
 GameObject:
   m_ObjectHideFlags: 0
